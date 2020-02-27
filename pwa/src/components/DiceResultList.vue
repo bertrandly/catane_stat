@@ -11,7 +11,7 @@
       </router-link>
     </div>
 
-    <loading :active.sync="isLoading" :is-full-page="fullPageLoading"></loading>
+
 
     <div v-if="currentGame">
       <h3 class="m-5">{{ currentGame.name }}</h3>
@@ -66,14 +66,6 @@ export default {
       //results: [],
       stats: []
     }
-  },
-  created () {
-    this.$store.dispatch('game/load', this.$route.params.gameId)
-      .then(() => {
-        //let currentGame = this.$store.getters['game/currentGame']
-        //this.results = currentGame.diceResults
-        this.updateStat()
-      })
   },
   /* accessible depuis le template */
   computed: {

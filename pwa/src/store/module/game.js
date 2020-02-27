@@ -20,11 +20,11 @@ export default {
     }
   },
   actions: {
-    loadAll ({ commit }) {
+    loadAll ({ commit }, page='/api/games') {
       commit('LOADING_ALL_GAMES')
-      return axios.get('/api/games')
+      return axios.get(page)
           .then(result => {
-            commit('LOADING_ALL_GAMES_SUCCESS', result.data['hydra:member'])
+            commit('LOADING_ALL_GAMES_SUCCESS', result.data)
           })
           .catch(e => {
             commit('LOADING_ALL_GAMES_ERROR', e)
@@ -49,7 +49,17 @@ export default {
         .catch(e => {
           commit('LOADING_GAME_ERROR', e)
         })
-    }
+    },
+    deleteGame ({ commit }, game) {
+      commit('DELETING_GAME')
+      return axios.delete('/api/games/'+game.id)
+          .then(result => {
+            commit('DELETING_GAME_SUCCESS', result)
+          })
+          .catch(e => {
+            commit('DELETING_GAME_ERROR', e)
+          })
+    },
   },
   mutations: {
     'CREATING_GAME' (state) {
@@ -70,6 +80,7 @@ export default {
       state.isLoading = true
       state.error = null
     },
+
     'LOADING_ALL_GAMES_SUCCESS' (state, games) {
       state.isLoading = false
       state.error = null
@@ -80,13 +91,26 @@ export default {
       state.error = null
     },
     'LOADING_GAME_SUCCESS' (state, game) {
+      state.currentGame = game
       state.isLoading = false
       state.error = null
-      state.currentGame = game
+
       //set game results
       this.dispatch('dice/setResults', game.diceResults)
     },
     'LOADING_GAME_ERROR' (state, error) {
+      state.isLoading = false
+      state.error = error
+    },
+    'DELETING_GAME' (state) {
+      state.isLoading = true
+      state.error = null
+    },
+    'DELETING_GAME_SUCCESS' (state) {
+      state.isLoading = false
+      state.error = null
+    },
+    'DELETING_GAME_ERROR' (state, error) {
       state.isLoading = false
       state.error = error
     }
