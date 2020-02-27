@@ -19,7 +19,7 @@ export default {
   actions: {
     addNewGame ({ commit }, game) {
       commit('CREATING_GAME')
-      return axios.post('http://127.0.0.1:8000/api/games', game)
+      return axios.post('/api/games', game)
         .then(result => {
           commit('CREATING_GAME_SUCCESS', result.data)
         })
@@ -29,7 +29,7 @@ export default {
     },
     load ({ commit }, gameId) {
       commit('LOADING_GAME')
-      return axios.get('http://127.0.0.1:8000/api/games/' + gameId)
+      return axios.get('/api/games/' + gameId)
         .then(result => {
           commit('LOADING_GAME_SUCCESS', result.data)
         })

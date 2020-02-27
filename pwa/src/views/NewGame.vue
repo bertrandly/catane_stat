@@ -64,7 +64,6 @@ export default {
 
       this.$store.dispatch('game/addNewGame', this.form)
         .then(result => {
-          console.log(result)
           // redirect to 'game' page
           let currentGame = this.$store.getters['game/currentGame']
           this.$router.push({ name: 'dice', params: { gameId: currentGame.id } })

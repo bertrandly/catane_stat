@@ -54,7 +54,7 @@ export default {
   },
   created () {
     this.$store.dispatch('game/load', this.$route.params.gameId)
-      .then(res => {
+      .then(() => {
         let currentGame = this.$store.getters['game/currentGame']
         this.results = currentGame.diceResults
         this.updateStat()
@@ -69,16 +69,15 @@ export default {
       }
 
       this.$store.dispatch('dice/addNewResult', dice)
-        .then(res => {
+        .then(() => {
           this.results.push(dice)
           this.updateStat()
         })
     },
     cancelLast () {
       const lastResult = this.results[this.results.length - 1]
-      console.log(lastResult['@id'])
       this.$store.dispatch('dice/deleteResult', lastResult['@id'])
-        .then(res => {
+        .then(() => {
           this.results.splice(-1, 1)
           this.updateStat()
         })
