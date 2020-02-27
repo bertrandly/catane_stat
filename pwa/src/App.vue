@@ -1,9 +1,13 @@
 <template>
   <div id="app">
+
+    <Offline @detected-condition="handleConnectivityChange">
+    </Offline>
+
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">A propos</router-link> |
+      <router-link to="/">Accueil</router-link> |
       <router-link to="/games">Jeux</router-link> |
+      <router-link to="/about">A propos</router-link>
     </div>
     <router-view/>
   </div>
@@ -31,3 +35,26 @@
   color: #42b983;
 }
 </style>
+
+<script>
+  import Offline from  'v-offline'
+  export  default {
+    components: { Offline },
+    mounted () {},
+    methods: {
+      handleConnectivityChange (status) {
+        if (!status) { this.toast('b-toaster-top-full') }
+      },
+      toast (toaster, append  =  false) {
+        this.$bvToast.toast('Vous n\'êtes pas connecté à l\'internet.<br>Veuillez activer le réseau pour pouvoir accéder aux données', {
+          title:  'Connexion',
+          toaster: toaster,
+          solid:  true,
+          appendToast: append
+        })
+      }
+    }
+  }
+</script>
+
+
