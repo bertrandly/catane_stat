@@ -14,7 +14,7 @@
 
         <div v-if="! isLoading">
             <div v-if="games && games.length > 0">
-                <p>ou charger une des <span>{{games.length}}</span> parties enregistrées</p>
+                <p>ou charger une des <span>{{totalRows}}</span> parties enregistrées</p>
                 <b-list-group>
                     <b-list-group-item href="#" class="flex-column align-items-start text-left" v-for="game in games"
                                        :key="'game-'+game.id">
@@ -121,7 +121,6 @@
         },
         methods: {
             switchPage: function (page) {
-                console.log(page)
                 this.$store.dispatch('game/loadAll', page)
             }
         }

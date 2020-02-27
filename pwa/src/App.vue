@@ -46,7 +46,7 @@
         if (!status) { this.toast('b-toaster-top-full') }
       },
       toast (toaster, append  =  false) {
-        this.$bvToast.toast('Vous n\'êtes pas connecté à l\'internet.<br>Veuillez activer le réseau pour pouvoir accéder aux données', {
+        this.$bvToast.toast('Vous n\'êtes pas connecté à l\'internet. Veuillez activer le réseau pour pouvoir accéder aux données', {
           title:  'Connexion',
           toaster: toaster,
           solid:  true,
