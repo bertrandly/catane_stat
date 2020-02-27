@@ -12,11 +12,24 @@ export default {
     isLoading (state) {
       return state.isLoading
     },
+    games (state) {
+      return state.games
+    },
     currentGame (state) {
       return state.currentGame
     }
   },
   actions: {
+    loadAll ({ commit }) {
+      commit('LOADING_ALL_GAMES')
+      return axios.get('/api/games')
+          .then(result => {
+            commit('LOADING_ALL_GAMES_SUCCESS', result.data['hydra:member'])
+          })
+          .catch(e => {
+            commit('LOADING_ALL_GAMES_ERROR', e)
+          })
+    },
     addNewGame ({ commit }, game) {
       commit('CREATING_GAME')
       return axios.post('/api/games', game)
@@ -53,6 +66,15 @@ export default {
       state.isLoading = false
       state.error = error
     },
+    'LOADING_ALL_GAMES' (state) {
+      state.isLoading = true
+      state.error = null
+    },
+    'LOADING_ALL_GAMES_SUCCESS' (state, games) {
+      state.isLoading = false
+      state.error = null
+      state.games = games
+    },
     'LOADING_GAME' (state) {
       state.isLoading = true
       state.error = null
@@ -61,6 +83,8 @@ export default {
       state.isLoading = false
       state.error = null
       state.currentGame = game
+      //set game results
+      this.dispatch('dice/setResults', game.diceResults)
     },
     'LOADING_GAME_ERROR' (state, error) {
       state.isLoading = false

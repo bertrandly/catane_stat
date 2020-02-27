@@ -1,37 +1,52 @@
 <template>
   <div class="container">
-    <h1 class="m-5">Catane</h1>
 
-    <!--buttons-->
-    <div class="row">
-      <div class="col-3 p-2 mb-2" v-for="index in possibilities" :key="index">
-        <b-button block variant="warning" @click="addDice(index)">
-          {{ index }}
-        </b-button>
-      </div>
-
-      <div class="col-3 p-2 mb-2">
-        <b-button block variant="warning" @click="cancelLast()">
-          X
-        </b-button>
-      </div>
+    <div class="text-left">
+      <router-link
+              :to="{ name: 'gameList'}"
+              class="btn btn-secondary btn-sm"
+      >
+        <b-icon-arrow-left></b-icon-arrow-left>
+        Retour à la liste des parties
+      </router-link>
     </div>
 
-    <!--chart-->
-    <div v-if="results.length > 0">
-      <!--Résultats-->
-      <h2>Résultats:</h2>
-      <dice-result v-bind:key="index" v-for="(result, index) in results" v-bind:result="result">
-      </dice-result>
+    <loading :active.sync="isLoading" :is-full-page="fullPageLoading"></loading>
 
-      <h2>Répartitions:</h2>
-      <pure-vue-chart
-        :points=stats
-        :show-values="true"
-        :show-y-axis="true"
-        :show-x-axis="true"
-        :height="200"
-      />
+    <div v-if="currentGame">
+      <h3 class="m-5">{{ currentGame.name }}</h3>
+
+      <!--buttons-->
+      <div class="row">
+        <div class="col-3 p-2 mb-2" v-for="index in possibilities" :key="index">
+          <b-button block variant="warning" @click="addDice(index)">
+            {{ index }}
+          </b-button>
+        </div>
+
+        <div class="col-3 p-2 mb-2">
+          <b-button block variant="warning" @click="cancelLast()">
+            X
+          </b-button>
+        </div>
+      </div>
+
+      <!--chart-->
+      <div v-if="results.length > 0">
+        <!--Résultats-->
+        <h2>Résultats:</h2>
+        <dice-result v-bind:key="index" v-for="(result, index) in results" v-bind:result="result">
+        </dice-result>
+
+        <h2 class="mt-4">Répartitions:</h2>
+        <pure-vue-chart
+                :points=stats
+                :show-values="true"
+                :show-y-axis="true"
+                :show-x-axis="true"
+                :height="200"
+        />
+      </div>
     </div>
 
   </div>
@@ -48,19 +63,31 @@ export default {
   data () {
     return {
       possibilities: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      results: [],
+      //results: [],
       stats: []
     }
   },
   created () {
     this.$store.dispatch('game/load', this.$route.params.gameId)
       .then(() => {
-        let currentGame = this.$store.getters['game/currentGame']
-        this.results = currentGame.diceResults
+        //let currentGame = this.$store.getters['game/currentGame']
+        //this.results = currentGame.diceResults
         this.updateStat()
       })
   },
+  /* accessible depuis le template */
+  computed: {
+    currentGame () {
+      return this.$store.getters['game/currentGame']
+    },
+    results () {
+      return this.getResults()
+    },
+  },
   methods: {
+    getResults () {
+      return this.$store.getters['dice/getResults']
+    },
     addDice (result) {
       let currentGame = this.$store.getters['game/currentGame']
       let dice = {
@@ -70,22 +97,24 @@ export default {
 
       this.$store.dispatch('dice/addNewResult', dice)
         .then(() => {
-          this.results.push(dice)
+          //this.results.push(dice)
           this.updateStat()
         })
     },
     cancelLast () {
-      const lastResult = this.results[this.results.length - 1]
+      let results = this.getResults();
+      const lastResult = results[results.length - 1]
       this.$store.dispatch('dice/deleteResult', lastResult['@id'])
         .then(() => {
-          this.results.splice(-1, 1)
+          //this.results.splice(-1, 1)
           this.updateStat()
         })
     },
     updateStat () {
+      let results = this.getResults();
       this.stats = new Array(12).fill(0)
-      for (let i = 0; i < this.results.length; i++) {
-        let result = this.results[i]
+      for (let i = 0; i < results.length; i++) {
+        let result = results[i]
         this.stats[result.number - 1] += 1
       }
     }

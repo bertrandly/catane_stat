@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Game from '../views/Game'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import GameList from "../views/GameList";
 
 Vue.use(VueRouter)
 // Install BootstrapVue
@@ -17,8 +18,13 @@ const routes = [
     component: Home
   },
   {
-    path: '/dice/:gameId',
-    name: 'dice',
+    path: '/games',
+    name: 'gameList',
+    component: GameList
+  },
+  {
+    path: '/game/:gameId',
+    name: 'game',
     component: Game
   },
   {

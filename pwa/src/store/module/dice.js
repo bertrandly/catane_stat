@@ -16,6 +16,9 @@ export default {
     }
   },
   actions: {
+    setResults ({ commit }, diceResult) {
+      commit('SETTING_DICE_SUCCESS', diceResult)
+    },
     addNewResult ({ commit }, diceResult) {
       commit('CREATING_DICE')
       return axios.post('/api/dice_results', diceResult)
@@ -38,6 +41,11 @@ export default {
     }
   },
   mutations: {
+    'SETTING_DICE_SUCCESS' (state, diceResults) {
+      state.isLoading = false
+      state.error = null
+      state.diceResults = diceResults;
+    },
     'CREATING_DICE' (state) {
       state.isLoading = true
       state.error = null
@@ -45,7 +53,7 @@ export default {
     'CREATING_DICE_SUCCESS' (state, diceResult) {
       state.isLoading = false
       state.error = null
-      state.diceResults.push(diceResult)
+      state.diceResults.push(diceResult.data)
     },
     'CREATING_DICE_ERROR' (state, error) {
       state.isLoading = false

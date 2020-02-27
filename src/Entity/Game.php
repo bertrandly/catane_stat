@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(normalizationContext={"groups"={"game"}})
+ * @ApiResource(
+ *     normalizationContext={"groups"={"game"}},
+ *     attributes={"order"={"createdAt": "DESC"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
  */
 class Game
@@ -24,11 +27,13 @@ class Game
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"game"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"game"})
      */
     private $createdAt;
 
