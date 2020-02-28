@@ -26,7 +26,7 @@
 
         <div class="col-3 p-2 mb-2">
           <b-button block variant="warning" @click="cancelLast()">
-            X
+            <b-icon-trash></b-icon-trash>
           </b-button>
         </div>
       </div>
