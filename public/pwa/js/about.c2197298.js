@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["about"],{f820:function(t,e,n){"use strict";n.r(e);var a=function(){var t=this,e=t.$createElement;t._self._c;return t._m(0)},l=[function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"about"},[n("p",[t._v("Développé par Bertrand Dilly")])])}],r=n("2877"),s={},u=Object(r["a"])(s,a,l,!1,null,null,null);e["default"]=u.exports}}]);
+//# sourceMappingURL=about.c2197298.js.map
