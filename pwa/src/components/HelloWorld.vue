@@ -13,6 +13,11 @@
       </router-link>
     </p>
 
+    <p class="mt-5">
+      <b-button size="sm" @click="toogleDark()">
+        Basculer en mode sombre
+      </b-button>
+    </p>
   </div>
 </template>
 
@@ -20,7 +25,25 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+
+  },
+  data () {
+    return {
+      darkMode: false
+    }
+  },
+  methods: {
+    toogleDark() {
+      this.darkMode = !this.darkMode
+      const el = document.body;
+      if(this.darkMode){
+        el.classList.add('dark');
+      }else{
+        el.classList.remove('dark');
+      }
+
+    }
   }
 }
 </script>

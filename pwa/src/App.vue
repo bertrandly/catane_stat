@@ -34,6 +34,20 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+  body.dark{
+    background-color: #1b1b1b;
+  }
+  .dark #app,
+  .dark #nav a{
+    color: ghostwhite;
+  }
+  .dark .list-group-item{
+    background-color: slategrey;
+  }
+  .dark .list-group-item-action{
+    color: ghostwhite;
+  }
 </style>
 
 <script>

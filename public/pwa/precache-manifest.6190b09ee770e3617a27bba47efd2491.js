@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "be1358d916150867b4ab",
-    "url": "/pwa/css/app.1d176881.css"
+    "revision": "2246f8097447ec1a3fb1",
+    "url": "/pwa/css/app.d00b0ba1.css"
   },
   {
     "revision": "b5537a5efc6dca7ec6e2",
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pwa/img/catane.de2ba7ea.jpg"
   },
   {
-    "revision": "9f29a9027f8fb727b2ae76c2db383b94",
+    "revision": "17fa47c5abef7d400a1df93daf1d95ca",
     "url": "/pwa/index.html"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pwa/js/about.c2197298.js"
   },
   {
-    "revision": "be1358d916150867b4ab",
-    "url": "/pwa/js/app.fcf6d37e.js"
+    "revision": "2246f8097447ec1a3fb1",
+    "url": "/pwa/js/app.688dfa72.js"
   },
   {
     "revision": "b5537a5efc6dca7ec6e2",

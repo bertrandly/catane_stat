@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/pwa/precache-manifest.5cda2204a8c551334c56471afdb8d694.js"
+  "/pwa/precache-manifest.6190b09ee770e3617a27bba47efd2491.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "Catane"});
